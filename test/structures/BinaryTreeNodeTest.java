@@ -37,6 +37,7 @@ public class BinaryTreeNodeTest {
 	
 	private BinaryTreeNode<Integer> initRoot3(){
 		//                    5
+		//                 /     \
 		//              /            \
 		//             3             19
 		//            / \           /
