@@ -2,7 +2,7 @@ package structures;
 
 public class BinaryTreeNodeI<T> implements BinaryTreeNode<T>{
 
-	BinaryTreeNode<T>[] children = (BinaryTreeNodeI<T>[])(new Object[2]);
+	BinaryTreeNode<T>[] children = (BinaryTreeNode<T>[])(new BinaryTreeNode[2]);
 	T data;
 
 	public BinaryTreeNodeI() {
