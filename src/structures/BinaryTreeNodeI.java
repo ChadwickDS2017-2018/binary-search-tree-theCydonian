@@ -45,12 +45,18 @@ public class BinaryTreeNodeI<T> implements BinaryTreeNode<T>{
 	@Override
 	public BinaryTreeNode<T> getLeftChild() {
 		// TODO Auto-generated method stub
-		return children[0];
+		if(children[0]==null)
+			throw new IllegalStateException();
+		
+			return children[0];
 	}
 
 	@Override
 	public BinaryTreeNode<T> getRightChild() {
 		// TODO Auto-generated method stub
+		if(children[1]==null)
+			throw new IllegalStateException();
+		
 		return children[1];
 	}
 
