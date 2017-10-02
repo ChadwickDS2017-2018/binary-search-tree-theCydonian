@@ -7,19 +7,27 @@ public class BinaryTreeUtilityI implements BinaryTreeUtility{
 	@Override
 	public <T> Iterator<T> getPreOrderIterator(BinaryTreeNode<T> root) {
 		// TODO Auto-generated method stub
-		//Iterator<T> test = new Iterator<T>();
+		if(root==null)
+			throw new NullPointerException();
+		
 		return null;
 	}
 
 	@Override
 	public <T> Iterator<T> getInOrderIterator(BinaryTreeNode<T> root) {
 		// TODO Auto-generated method stub
+		if(root==null)
+			throw new NullPointerException();
+		
 		return null;
 	}
 
 	@Override
 	public <T> Iterator<T> getPostOrderIterator(BinaryTreeNode<T> root) {
 		// TODO Auto-generated method stub
+		if(root==null)
+			throw new NullPointerException();
+		
 		return null;
 	}
 
