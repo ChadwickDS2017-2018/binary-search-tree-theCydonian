@@ -113,6 +113,9 @@ public class BinaryTreeUtilityI implements BinaryTreeUtility{
 	@Override
 	public <T extends Comparable<? super T>> boolean isBST(BinaryTreeNode<T> root) {
 		// TODO Auto-generated method stub
+		if(root==null)
+			throw new NullPointerException();
+		
 		boolean x=true;
 		boolean y=true;
 		if(root.hasLeftChild()) {
