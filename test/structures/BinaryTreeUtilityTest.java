@@ -313,8 +313,8 @@ public class BinaryTreeUtilityTest {
 	
 	@Test (timeout = 5000)
 	public void testDepth(){
-		//assertEquals(0, utility.getDepth(root));
-		//assertEquals(1, utility.getDepth(root2));
+		assertEquals(0, utility.getDepth(root));
+		assertEquals(1, utility.getDepth(root2));
 	//      5
 	//              /            \
 	//             3             19
