@@ -1,6 +1,8 @@
 package structures;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 public class BinaryTreeUtilityI implements BinaryTreeUtility{
 
@@ -9,8 +11,8 @@ public class BinaryTreeUtilityI implements BinaryTreeUtility{
 		// TODO Auto-generated method stub
 		if(root==null)
 			throw new NullPointerException();
-		
-		return null;
+
+		return new PreOrderIterator(root);
 	}
 
 	@Override
@@ -18,8 +20,36 @@ public class BinaryTreeUtilityI implements BinaryTreeUtility{
 		// TODO Auto-generated method stub
 		if(root==null)
 			throw new NullPointerException();
-		
-		return null;
+		LinkedList<T> it = new LinkedList<T>();
+		it.add(root.getData());
+		int rindex=0;
+
+		if(root.hasLeftChild()) {
+			it.add(rindex, root.getLeftChild().getData());
+			it=getInOrderIterator(root.getLeftChild(), it, rindex);
+			rindex=it.size()-1;
+		}if(root.hasRightChild()) {
+			it.add(rindex+1, root.getRightChild().getData());
+			it=getInOrderIterator(root.getRightChild(), it, rindex+1);
+			rindex=0;
+		}
+
+		return it.iterator();
+	}
+
+	public <T> LinkedList<T> getInOrderIterator(BinaryTreeNode<T> root, LinkedList<T> it, int rindex) {
+		// TODO Auto-generated method stub
+		if(root.hasLeftChild()) {
+			int initSize=it.size();
+			it.add(rindex, root.getLeftChild().getData());
+			it=getInOrderIterator(root.getLeftChild(), it, rindex);
+			rindex+=it.size()-initSize;
+		}if(root.hasRightChild()) {
+			it.add(rindex+1, root.getRightChild().getData());
+			it=getInOrderIterator(root.getRightChild(), it, rindex+1);
+			rindex=it.size()-1;
+		}
+		return it;
 	}
 
 	@Override
@@ -27,7 +57,8 @@ public class BinaryTreeUtilityI implements BinaryTreeUtility{
 		// TODO Auto-generated method stub
 		if(root==null)
 			throw new NullPointerException();
-		
+
+
 		return null;
 	}
 
@@ -41,13 +72,13 @@ public class BinaryTreeUtilityI implements BinaryTreeUtility{
 		int rightDepth = 0;
 		if(root.hasLeftChild())
 			leftDepth=getDepth(root.getLeftChild(), 1); 
-			if(root.hasRightChild())
-				rightDepth=getDepth(root.getRightChild(), 1); 
+		if(root.hasRightChild())
+			rightDepth=getDepth(root.getRightChild(), 1); 
 
-				if(leftDepth>rightDepth)
-					return leftDepth;
-				else
-					return rightDepth;
+		if(leftDepth>rightDepth)
+			return leftDepth;
+		else
+			return rightDepth;
 	}
 
 	private <T> int getDepth(BinaryTreeNode<T> root, int depth) {
@@ -67,8 +98,8 @@ public class BinaryTreeUtilityI implements BinaryTreeUtility{
 		}
 		return depth;
 	}
-	
-	
+
+
 	private <T> int getMinDepth(BinaryTreeNode<T> root)  {
 		// TODO Auto-generated method stub
 		if (root==null) {
@@ -78,13 +109,13 @@ public class BinaryTreeUtilityI implements BinaryTreeUtility{
 		int rightDepth = 0;
 		if(root.hasLeftChild())
 			leftDepth=getMinDepth(root.getLeftChild(), 1); 
-			if(root.hasRightChild())
-				rightDepth=getMinDepth(root.getRightChild(), 1); 
+		if(root.hasRightChild())
+			rightDepth=getMinDepth(root.getRightChild(), 1); 
 
-				if(leftDepth<rightDepth)
-					return leftDepth;
-				else
-					return rightDepth;
+		if(leftDepth<rightDepth)
+			return leftDepth;
+		else
+			return rightDepth;
 	}
 
 	private <T> int getMinDepth(BinaryTreeNode<T> root, int depth) {
@@ -110,11 +141,11 @@ public class BinaryTreeUtilityI implements BinaryTreeUtility{
 		// TODO Auto-generated method stub
 		if(tolerance<0)
 			throw new IllegalArgumentException();
-		
+
 		int min=getMinDepth(root);
 		int max=getDepth(root);
-		
-		
+
+
 		return (max-min<=tolerance);
 	}
 
@@ -123,23 +154,23 @@ public class BinaryTreeUtilityI implements BinaryTreeUtility{
 		// TODO Auto-generated method stub
 		if(root==null)
 			throw new NullPointerException();
-		
+
 		boolean x=true;
 		boolean y=true;
 		if(root.hasLeftChild()) {
-			if((Integer)(root.getLeftChild().getData())<=(Integer)(root.getData()))
+			if((root.getLeftChild().getData()).compareTo((root.getData()))<0)
 				x=isBST(root.getLeftChild());
 			else
 				return false;
-	}
+		}
 		if(root.hasRightChild()) {
-			if((Integer)(root.getRightChild().getData())>(Integer)(root.getData()))
+			if((root.getRightChild().getData()).compareTo((root.getData()))>0)
 				y=isBST(root.getRightChild());
 			else
 				return false;
-	}
+		}
 		return x&&y;
-		
+
 	}
 
 }
