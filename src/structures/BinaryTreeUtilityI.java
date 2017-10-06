@@ -12,11 +12,16 @@ public class BinaryTreeUtilityI implements BinaryTreeUtility{
 		if(root==null)
 			throw new NullPointerException();
 
-		return new PreOrderIterator(root);
+		return new PreOrderIterator<T>(root);
 	}
 
 	@Override
 	public <T> Iterator<T> getInOrderIterator(BinaryTreeNode<T> root) {
+		if(root==null)
+			throw new NullPointerException();
+		return new InOrderIterator<T>(root);
+	}
+	public <T> Iterator<T> getInOrderIterators(BinaryTreeNode<T> root) {
 		// TODO Auto-generated method stub
 		if(root==null)
 			throw new NullPointerException();

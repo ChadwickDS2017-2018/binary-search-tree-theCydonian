@@ -197,13 +197,13 @@ public class BinaryTreeUtilityTest {
 		Iterator<Integer> itr2 = utility.getInOrderIterator(root2);
 		assertIteratorContains(itr2, 5, 7);
 		
-		//                    5
-		//              /            \
-		//             3             19
-		//            / \           /
-		//           6   7         1
-		//                        /
-		//                       4
+		//                5
+		//              /   \
+		//             3     19
+		//            / \    /
+		//           6   7  1
+		//                 /
+		//                4
 		Iterator<Integer> itr3 = utility.getInOrderIterator(root3);
 		assertIteratorContains(itr3, 6, 3, 7, 5, 4, 1, 19);
 		
