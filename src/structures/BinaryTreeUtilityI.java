@@ -62,9 +62,7 @@ public class BinaryTreeUtilityI implements BinaryTreeUtility{
 		// TODO Auto-generated method stub
 		if(root==null)
 			throw new NullPointerException();
-
-
-		return null;
+		return new PostOrderIterator<T>(root);
 	}
 
 	@Override
