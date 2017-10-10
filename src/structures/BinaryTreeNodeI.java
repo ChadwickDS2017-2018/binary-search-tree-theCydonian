@@ -4,17 +4,20 @@ public class BinaryTreeNodeI<T> implements BinaryTreeNode<T>{
 
 	BinaryTreeNode<T>[] children = (BinaryTreeNode<T>[])(new BinaryTreeNode[2]);
 	T data;
-
+	boolean active;
+	
 	public BinaryTreeNodeI() {
-
+		active=true;
 	}
 	public BinaryTreeNodeI(T data) {
 		this.data=data;
+		active=true;
 	}
 	public BinaryTreeNodeI(T data, BinaryTreeNode left,BinaryTreeNode right) {
 		this.data=data;
 		children[0]=left;
 		children[1]=right;
+		active=true;
 	}
 
 	@Override
@@ -70,6 +73,14 @@ public class BinaryTreeNodeI<T> implements BinaryTreeNode<T>{
 	public void setRightChild(BinaryTreeNode<T> right) {
 		// TODO Auto-generated method stub
 		children[2]=right;
+	}
+	
+	public void Deactivate () {
+		active=false;
+	}
+	
+	public boolean active () {
+		return this.active;
 	}
 
 }
