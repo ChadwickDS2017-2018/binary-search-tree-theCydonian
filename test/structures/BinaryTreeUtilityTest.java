@@ -189,7 +189,7 @@ public class BinaryTreeUtilityTest {
 		assertEquals(new Integer(10), itr.next());
 	}
 	
-	@Test (timeout = 100)
+	@Test //(timeout = 100)
 	public void testGetInOrderIterator() {
 		Iterator<Integer> itr = utility.getInOrderIterator(root);
 		assertIteratorContains(itr, 5);

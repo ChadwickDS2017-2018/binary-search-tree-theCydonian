@@ -12,7 +12,7 @@ public class InOrderIterator<T> implements Iterator<T>  {
 
 	public InOrderIterator(BinaryTreeNode<T> root){
 		stack = new LinkedList<BinaryTreeNode<T>>();
-		inorder(root);
+		stack.add(root);
 	}
 
 	@Override
@@ -22,21 +22,29 @@ public class InOrderIterator<T> implements Iterator<T>  {
 
 	@Override
 	public T next() {
-		T elem = stack.get(0).getData();
-		stack.remove(0);
+		T elem = inorder((BinaryTreeNodeI<T>)(stack.getLast()));
 		return elem;
 
 	}
 
-	private void inorder (BinaryTreeNode<T> node)
+	private T inorder (BinaryTreeNodeI<T> node)
 	{
-			if(node.hasLeftChild())
-				inorder (node.getLeftChild());
+			if(node.hasLeftChild()) {
+				System.out.println("l");
+				return inorder ((BinaryTreeNodeI<T>)(node.getLeftChild()));
+			}
 			
-			stack.add(node);
+			if(node.active) {
+				node.Deactivate();
+				System.out.println("hello");
+				return node.getData();
+			}
 
-			if(node.hasRightChild())
-				inorder (node.getRightChild());
+			if(node.hasRightChild()) {
+				System.out.println("r");
+				return inorder ((BinaryTreeNodeI<T>)(node.getRightChild()));
+			}
+			return null;
 	}
 
 
