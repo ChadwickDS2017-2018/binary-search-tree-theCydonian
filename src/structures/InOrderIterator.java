@@ -6,12 +6,13 @@ import java.util.LinkedList;
 
 public class InOrderIterator<T> implements Iterator<T>  {
 
+	boolean returnElements = false;
 
-	private final Deque<BinaryTreeNode<T>> stack;
+	private final LinkedList<BinaryTreeNode<T>> stack;
 
 	public InOrderIterator(BinaryTreeNode<T> root){
 		stack = new LinkedList<BinaryTreeNode<T>>();
-		stack.push(root);
+		inorder(root);
 	}
 
 	@Override
@@ -21,32 +22,29 @@ public class InOrderIterator<T> implements Iterator<T>  {
 
 	@Override
 	public T next() {
-		BinaryTreeNode<T> toVisit = stack.pop();
-		if(toVisit.hasRightChild()) {
-			stack.push(toVisit.getRightChild());
-			return toVisit.getData();
-		}
-		if(toVisit.hasLeftChild()) {
-			stack.push(toVisit.getLeftChild());
-			return nextEnd();
-		}
-		return toVisit.getData();
+		T elem = stack.get(0).getData();
+		stack.remove(0);
+		return elem;
 
 	}
 
+	private void inorder (BinaryTreeNode<T> node)
+	{
+			if(node.hasLeftChild())
+				inorder (node.getLeftChild());
+			
+			stack.add(node);
 
-	public T nextEnd() {
-		BinaryTreeNode<T> toVisit = stack.pop();
-		if(toVisit.hasRightChild()) {
-			stack.push(toVisit.getRightChild());
-			return toVisit.getData();
-		}
-		if(toVisit.hasLeftChild()) {
-			stack.push(toVisit.getLeftChild());
-			return next();
-		}
-		return toVisit.getData();
+			if(node.hasRightChild())
+				inorder (node.getRightChild());
+	}
 
+
+	private boolean isLeaf(BinaryTreeNode<T> node) {
+		return !node.hasLeftChild()&&!node.hasRightChild();
+	}
+	private boolean isRightOnly(BinaryTreeNode<T> node) {
+		return !node.hasLeftChild()&&node.hasRightChild();
 	}
 
 	@Override
