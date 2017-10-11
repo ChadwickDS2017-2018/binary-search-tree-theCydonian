@@ -46,13 +46,15 @@ public class PostOrderIterator<T> implements Iterator<T>  {
 					return returned;
 		}
 
+		if(node.hasRightChild()) {
+			T returned = postorder ((BinaryTreeNodeI<T>)(node.getRightChild()));
+			if(returned!=null)
+				return returned;
+		}
+		
 		if(node.active()) {
 			node.Deactivate();
 			return node.getData();
-		}
-
-		if(node.hasRightChild()) {
-			return postorder ((BinaryTreeNodeI<T>)(node.getRightChild()));
 		}
 
 		return null;
