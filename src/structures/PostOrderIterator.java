@@ -4,26 +4,86 @@ import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public class PostOrderIterator<T> implements Iterator<T> {
-	
-	private final Deque<BinaryTreeNode<T>> stack; 
-	
+public class PostOrderIterator<T> implements Iterator<T>  {
+
+	boolean returnElements = false;
+
+	private final BinaryTreeNode<T> root;
+
+	T prev;
+	T next;
+
+
 	public PostOrderIterator(BinaryTreeNode<T> root){
-		stack = new LinkedList<BinaryTreeNode<T>>();
-		stack.push(root);
+		this.root=root;
+
+		prev=next=null;
 	}
 
 	@Override
 	public boolean hasNext() {
-		return !stack.isEmpty();
+		return !((next==null)&&(prev!=null));
 	}
 
 	@Override
 	public T next() {
-		BinaryTreeNode<T> toVisit = stack.pop();
-		if(toVisit.hasRightChild()) stack.push(toVisit.getRightChild());
-		if(toVisit.hasLeftChild()) stack.push(toVisit.getLeftChild());
-		return toVisit.getData();
+		T elem;
+		if(prev==null) {
+			elem = inorder((BinaryTreeNodeI<T>)(root));
+			prev=elem;
+			next=inorder((BinaryTreeNodeI<T>)(root));
+		} else {
+			elem = next;
+			next=inorder((BinaryTreeNodeI<T>)(root));
+		}
+		return elem;
+
+	}
+
+	private T inorder (BinaryTreeNodeI<T> node)
+	{
+		if(node.hasLeftChild()) {
+				T returned = inorder ((BinaryTreeNodeI<T>)(node.getLeftChild()));
+				if(returned!=null)
+					return returned;
+		}
+
+		if(node.active()) {
+			node.Deactivate();
+			return node.getData();
+		}
+
+		if(node.hasRightChild()) {
+			return inorder ((BinaryTreeNodeI<T>)(node.getRightChild()));
+		}
+
+		return null;
+	}
+
+	private T InOrderActive (BinaryTreeNodeI<T> node)
+	{
+		if(node.hasLeftChild()) {
+			System.out.println("l");
+			return inorder ((BinaryTreeNodeI<T>)(node.getLeftChild()));
+		}
+
+		if(node.active()) {
+			return node.getData();
+		}
+
+		if(node.hasRightChild()) {
+			return inorder ((BinaryTreeNodeI<T>)(node.getRightChild()));
+		}
+
+		return null;
+	}
+
+
+	private boolean isLeaf(BinaryTreeNode<T> node) {
+		return !node.hasLeftChild()&&!node.hasRightChild();
+	}
+	private boolean isRightOnly(BinaryTreeNode<T> node) {
+		return !node.hasLeftChild()&&node.hasRightChild();
 	}
 
 	@Override

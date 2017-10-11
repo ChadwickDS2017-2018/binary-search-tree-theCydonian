@@ -1,50 +1,79 @@
 package structures;
 
-import java.util.Deque;
 import java.util.Iterator;
-import java.util.LinkedList;
 
 public class InOrderIterator<T> implements Iterator<T>  {
 
 	boolean returnElements = false;
 
-	private final LinkedList<BinaryTreeNode<T>> stack;
+	private final BinaryTreeNode<T> root;
+
+	T prev;
+	T next;
+
 
 	public InOrderIterator(BinaryTreeNode<T> root){
-		stack = new LinkedList<BinaryTreeNode<T>>();
-		stack.add(root);
+		this.root=root;
+
+		prev=next=null;
 	}
 
 	@Override
 	public boolean hasNext() {
-		return !stack.isEmpty();
+		return !((next==null)&&(prev!=null));
 	}
 
 	@Override
 	public T next() {
-		T elem = inorder((BinaryTreeNodeI<T>)(stack.getLast()));
+		T elem;
+		if(prev==null) {
+			elem = inorder((BinaryTreeNodeI<T>)(root));
+			prev=elem;
+			next=inorder((BinaryTreeNodeI<T>)(root));
+		} else {
+			elem = next;
+			next=inorder((BinaryTreeNodeI<T>)(root));
+		}
 		return elem;
 
 	}
 
 	private T inorder (BinaryTreeNodeI<T> node)
 	{
-			if(node.hasLeftChild()) {
-				System.out.println("l");
-				return inorder ((BinaryTreeNodeI<T>)(node.getLeftChild()));
-			}
-			
-			if(node.active) {
-				node.Deactivate();
-				System.out.println("hello");
-				return node.getData();
-			}
+		if(node.hasLeftChild()) {
+				T returned = inorder ((BinaryTreeNodeI<T>)(node.getLeftChild()));
+				if(returned!=null)
+					return returned;
+		}
 
-			if(node.hasRightChild()) {
-				System.out.println("r");
-				return inorder ((BinaryTreeNodeI<T>)(node.getRightChild()));
-			}
-			return null;
+		if(node.active()) {
+			node.Deactivate();
+			return node.getData();
+		}
+
+		if(node.hasRightChild()) {
+			return inorder ((BinaryTreeNodeI<T>)(node.getRightChild()));
+		}
+
+		return null;
+	}
+
+	private T InOrderActive (BinaryTreeNodeI<T> node)
+	{
+		if(node.hasLeftChild()) {
+			System.out.println("l");
+			return inorder ((BinaryTreeNodeI<T>)(node.getLeftChild()));
+		}
+
+		if(node.active()) {
+			return node.getData();
+		}
+
+		if(node.hasRightChild()) {
+			return inorder ((BinaryTreeNodeI<T>)(node.getRightChild()));
+		}
+
+		return null;
 	}
 
 

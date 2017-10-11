@@ -21,41 +21,6 @@ public class BinaryTreeUtilityI implements BinaryTreeUtility{
 			throw new NullPointerException();
 		return new InOrderIterator<T>(root);
 	}
-	public <T> Iterator<T> getInOrderIterators(BinaryTreeNode<T> root) {
-		// TODO Auto-generated method stub
-		if(root==null)
-			throw new NullPointerException();
-		LinkedList<T> it = new LinkedList<T>();
-		it.add(root.getData());
-		int rindex=0;
-
-		if(root.hasLeftChild()) {
-			it.add(rindex, root.getLeftChild().getData());
-			it=getInOrderIterator(root.getLeftChild(), it, rindex);
-			rindex=it.size()-1;
-		}if(root.hasRightChild()) {
-			it.add(rindex+1, root.getRightChild().getData());
-			it=getInOrderIterator(root.getRightChild(), it, rindex+1);
-			rindex=0;
-		}
-
-		return it.iterator();
-	}
-
-	public <T> LinkedList<T> getInOrderIterator(BinaryTreeNode<T> root, LinkedList<T> it, int rindex) {
-		// TODO Auto-generated method stub
-		if(root.hasLeftChild()) {
-			int initSize=it.size();
-			it.add(rindex, root.getLeftChild().getData());
-			it=getInOrderIterator(root.getLeftChild(), it, rindex);
-			rindex+=it.size()-initSize;
-		}if(root.hasRightChild()) {
-			it.add(rindex+1, root.getRightChild().getData());
-			it=getInOrderIterator(root.getRightChild(), it, rindex+1);
-			rindex=it.size()-1;
-		}
-		return it;
-	}
 
 	@Override
 	public <T> Iterator<T> getPostOrderIterator(BinaryTreeNode<T> root) {
