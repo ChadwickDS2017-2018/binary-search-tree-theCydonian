@@ -1,8 +1,6 @@
 package structures;
 
-import java.util.Deque;
 import java.util.Iterator;
-import java.util.LinkedList;
 
 public class PostOrderIterator<T> implements Iterator<T>  {
 
@@ -29,21 +27,21 @@ public class PostOrderIterator<T> implements Iterator<T>  {
 	public T next() {
 		T elem;
 		if(prev==null) {
-			elem = inorder((BinaryTreeNodeI<T>)(root));
+			elem = postorder((BinaryTreeNodeI<T>)(root));
 			prev=elem;
-			next=inorder((BinaryTreeNodeI<T>)(root));
+			next=postorder((BinaryTreeNodeI<T>)(root));
 		} else {
 			elem = next;
-			next=inorder((BinaryTreeNodeI<T>)(root));
+			next=postorder((BinaryTreeNodeI<T>)(root));
 		}
 		return elem;
 
 	}
 
-	private T inorder (BinaryTreeNodeI<T> node)
+	private T postorder (BinaryTreeNodeI<T> node)
 	{
 		if(node.hasLeftChild()) {
-				T returned = inorder ((BinaryTreeNodeI<T>)(node.getLeftChild()));
+				T returned = postorder ((BinaryTreeNodeI<T>)(node.getLeftChild()));
 				if(returned!=null)
 					return returned;
 		}
@@ -54,36 +52,10 @@ public class PostOrderIterator<T> implements Iterator<T>  {
 		}
 
 		if(node.hasRightChild()) {
-			return inorder ((BinaryTreeNodeI<T>)(node.getRightChild()));
+			return postorder ((BinaryTreeNodeI<T>)(node.getRightChild()));
 		}
 
 		return null;
-	}
-
-	private T InOrderActive (BinaryTreeNodeI<T> node)
-	{
-		if(node.hasLeftChild()) {
-			System.out.println("l");
-			return inorder ((BinaryTreeNodeI<T>)(node.getLeftChild()));
-		}
-
-		if(node.active()) {
-			return node.getData();
-		}
-
-		if(node.hasRightChild()) {
-			return inorder ((BinaryTreeNodeI<T>)(node.getRightChild()));
-		}
-
-		return null;
-	}
-
-
-	private boolean isLeaf(BinaryTreeNode<T> node) {
-		return !node.hasLeftChild()&&!node.hasRightChild();
-	}
-	private boolean isRightOnly(BinaryTreeNode<T> node) {
-		return !node.hasLeftChild()&&node.hasRightChild();
 	}
 
 	@Override

@@ -58,32 +58,6 @@ public class InOrderIterator<T> implements Iterator<T>  {
 		return null;
 	}
 
-	private T InOrderActive (BinaryTreeNodeI<T> node)
-	{
-		if(node.hasLeftChild()) {
-			System.out.println("l");
-			return inorder ((BinaryTreeNodeI<T>)(node.getLeftChild()));
-		}
-
-		if(node.active()) {
-			return node.getData();
-		}
-
-		if(node.hasRightChild()) {
-			return inorder ((BinaryTreeNodeI<T>)(node.getRightChild()));
-		}
-
-		return null;
-	}
-
-
-	private boolean isLeaf(BinaryTreeNode<T> node) {
-		return !node.hasLeftChild()&&!node.hasRightChild();
-	}
-	private boolean isRightOnly(BinaryTreeNode<T> node) {
-		return !node.hasLeftChild()&&node.hasRightChild();
-	}
-
 	@Override
 	public void remove() {
 		throw new UnsupportedOperationException();
