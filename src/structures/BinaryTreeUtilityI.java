@@ -123,21 +123,22 @@ public class BinaryTreeUtilityI implements BinaryTreeUtility{
 		if(root==null)
 			throw new NullPointerException();
 
-		boolean x=true;
-		boolean y=true;
-		if(root.hasLeftChild()) {
-			if((root.getLeftChild().getData()).compareTo((root.getData()))<0)
-				x=isBST(root.getLeftChild());
-			else
+		Iterator<T> it = getInOrderIterator(root);
+		T next = null;
+		T current;
+		while(it.hasNext()) {
+			if(next==null) {
+				current =it.next();
+				next=it.next();
+			} else {
+				current =next;
+				next=it.next();
+			}
+			if(next!=null && current.compareTo(next)>0) {
 				return false;
+			}
 		}
-		if(root.hasRightChild()) {
-			if((root.getRightChild().getData()).compareTo((root.getData()))>0)
-				y=isBST(root.getRightChild());
-			else
-				return false;
-		}
-		return x&&y;
+		return true;
 
 	}
 

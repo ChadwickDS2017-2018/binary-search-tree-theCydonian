@@ -1,6 +1,7 @@
 package config;
 
 import structures.BinarySearchTree;
+import structures.BinarySearchTreeI;
 import structures.BinaryTreeNode;
 import structures.BinaryTreeNodeI;
 import structures.BinaryTreeUtility;
@@ -29,7 +30,7 @@ public class Configuration {
 	}
 	
 	public static <T extends Comparable<? super T>> BinarySearchTree<T> createBinarySearchTree(){
-		return null;
+		return new BinarySearchTreeI<T>();
 	}
 	
 
