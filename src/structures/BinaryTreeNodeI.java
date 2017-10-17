@@ -72,7 +72,7 @@ public class BinaryTreeNodeI<T> implements BinaryTreeNode<T>{
 	@Override
 	public void setRightChild(BinaryTreeNode<T> right) {
 		// TODO Auto-generated method stub
-		children[2]=right;
+		children[1]=right;
 	}
 	
 	public void Deactivate () {
